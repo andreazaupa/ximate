@@ -100,8 +100,10 @@ module Ximate
         instance_eval(&block)
         @words.each do |priority, words|
           words.each do |word|
-            ids_ranks = (DATA[locale.to_sym][table][word] ||= {})
-            ids_ranks[self.id] = ids_ranks[self.id].to_i + priority
+            if DATA[locale.to_sym] && DATA[locale.to_sym][table]
+              ids_ranks = (DATA[locale.to_sym][table][word] ||= {})
+              ids_ranks[self.id] = ids_ranks[self.id].to_i + priority
+            end
           end
         end
       end
@@ -113,7 +115,7 @@ module Ximate
       DATA[locale.to_sym][table].each do |word, ids_ranks|
         ids_ranks.delete(self.id)
         DATA[locale.to_sym][table].delete(word) if ids_ranks.empty?
-      end
+      end if DATA[locale.to_sym] && DATA[locale.to_sym][table]
     end
 
   end
