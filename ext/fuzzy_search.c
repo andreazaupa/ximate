@@ -2,7 +2,7 @@
 #include <string.h>
 #include <limits.h>
 #include <ruby.h>
-
+#include <ctype.h>
 #include <stdio.h>
 
 char *
